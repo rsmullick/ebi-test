@@ -21,9 +21,9 @@ public class PersonRequestRouter {
                 .andRoute(GET("/allpersonbyfirstname").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::getAllPersonByFirstName)
                 .andRoute(GET("/allpersonbylastname").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::getAllPersonByLastName)
                 .andRoute(GET("/allpersonbyage").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::getAllPersonByAge)
-                .andRoute(RequestPredicates.DELETE("/removeperson").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::deletePerson)
-                .andRoute(RequestPredicates.POST("/addpersons").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::createPerson)
-                .andRoute(RequestPredicates.PUT("/update").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), personRequestHandler::updatePerson)
+                .andRoute(RequestPredicates.DELETE("/removeperson").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), personRequestHandler::deletePerson)
+                .andRoute(RequestPredicates.POST("/addpersons"),personRequestHandler::createPerson)
+                .andRoute(RequestPredicates.PUT("/update").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), personRequestHandler::updatePerson)
                 .and(notFound())
                 ;
     }

@@ -1,9 +1,11 @@
 package com.example.personresource;
 
-import org.neo4j.springframework.data.repository.config.EnableReactiveNeo4jRepositories;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+@EnableTransactionManagement
 @SpringBootApplication
 public class PersonresourceApplication {
 

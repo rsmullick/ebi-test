@@ -27,7 +27,10 @@ public class PersonRequestHandler {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Person.class);
     }
     public Mono<ServerResponse> createPerson (ServerRequest request) {
-        Flux<Person> result = personService.getAllPersons();
+        Mono<Person> person = request.bodyToMono(Person.class);
+        Mono<Person> result = person.map(p -> {personService.createPerson(p);
+            return p;
+        });
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Person.class);
     }
     public Mono<ServerResponse> deletePerson (ServerRequest request) {
@@ -46,5 +49,6 @@ public class PersonRequestHandler {
         Flux<Person> result = personService.getAllPersons();
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(result, Person.class);
     }
+
 
 }

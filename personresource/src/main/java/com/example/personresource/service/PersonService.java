@@ -6,6 +6,7 @@ import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class PersonService {
@@ -21,7 +22,16 @@ public class PersonService {
                 .transform(it -> {
                     ReactiveCircuitBreaker cb = cbFactory.create("defaultCustomizer");
                     return cb.run(it, throwable ->
-                            Flux.just(new Person(0l , "first", "last", 0, "data not found")));
+                            Flux.just(new Person()));
+                });
+    }
+
+    public Mono<Person> createPerson(Person person) {
+        return personRepository.save(person)
+                .transform(it -> {
+                    ReactiveCircuitBreaker cb = cbFactory.create("defaultCustomizer");
+                    return cb.run(it, throwable ->
+                            Mono.just(new Person()));
                 });
     }
 }
